@@ -6,7 +6,7 @@ import { fetchProductByIdAsync, selectProductById } from './productsSlice';
 import { useParams } from 'react-router-dom';
 import { addToCartAsync, selectItems } from '../cart/cartSlice';
 import { useAlert } from 'react-alert';
-import { selectLoggedInUser } from '../auth/authSlice';
+// import { selectLoggedInUser } from '../auth/authSlice';
 
 // TODO: In server data we will add colors, sizes , highlights. to each product
 
@@ -44,7 +44,7 @@ export default function ProductDetail() {
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [selectedSize, setSelectedSize] = useState(sizes[2]);
   const product = useSelector(selectProductById);
-  const user = useSelector(selectLoggedInUser);
+  // const user = useSelector(selectLoggedInUser);
   const items = useSelector(selectItems);
   const dispatch = useDispatch();
   const params = useParams();
@@ -81,7 +81,7 @@ export default function ProductDetail() {
       const newItem = {
         product: product.id,
         quantity: 1,
-        user: user.id,
+        // user: user.id,
       };
       dispatch(addToCartAsync(newItem));
       // TODO: it will be based on server response of backend
@@ -99,7 +99,7 @@ export default function ProductDetail() {
 
   return (
     <div className="bg-white">
-  
+      
       {!!product && (
         <div className="pt-6">
           <nav aria-label="Breadcrumb">

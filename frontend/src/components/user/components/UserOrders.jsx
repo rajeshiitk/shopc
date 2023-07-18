@@ -1,22 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchLoggedInUserOrderAsync, selectUserInfo, selectUserOrders } from '../userSlice';
+import { fetchLoggedInUserOrderAsync, selectUserInfo, selectUserInfoStatus, selectUserOrders } from '../userSlice';
 import { discountedPrice } from '../../../constants';
+import { Dna } from 'react-loader-spinner';
 
 export default function UserOrders() {
   const dispatch = useDispatch();
   const userInfo = useSelector(selectUserInfo);
   const orders = useSelector(selectUserOrders);
+  const status = useSelector(selectUserInfoStatus);
 
   useEffect(() => {
     console.log('userInfo', userInfo);
-    dispatch(fetchLoggedInUserOrderAsync(userInfo.id));
+    dispatch(fetchLoggedInUserOrderAsync());
   }, []);
 
   console.log(orders);
   return (
     <div>
-      {orders.map((order) => (
+    {status === "loading" ? (
+            <Dna
+              visible={true}
+              height="80"
+              width="80"
+              ariaLabel="dna-loading"
+              wrapperStyle={{}}
+              wrapperClass="dna-wrapper"
+            />
+          ) : null}
+       { !!orders && orders.map((order) => (
         <div key={order.id}>
           <div>
             <div className="mx-auto mt-12 bg-white max-w-7xl px-4 sm:px-6 lg:px-8">
